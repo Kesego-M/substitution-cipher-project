@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Substitution Cipher System</title>
+    <style>
+        /* 🎨 Page Styling */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* 📦 Container */
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* 📝 Input Styling */
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        /* 🔘 Buttons */
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        button {
+            flex: 1;
+            background-color: #8b5cf6;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #6d28d9;
+        }
+
+        button.decrypt {
+            background-color: #ec4899;
+        }
+
+        button.decrypt:hover {
+            background-color: #be185d;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🔐 Substitution Cipher</h1>
+
+        <input id="inputText" type="text" placeholder="Enter text...">
+        <input id="shiftKey" type="number" placeholder="Enter key (1-25)" min="0" max="25">
+
+        <div class="btn-container">
+            <button onclick="encryptText()">Encrypt</button>
+            <button class="decrypt" onclick="decryptText()">Decrypt</button>
+        </div>
+    </div>
+
+    <script>
+        const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        function generateShiftedAlphabet(shift) {
+            return alphabet.slice(shift) + alphabet.slice(0, shift);
+        }
+
+        function encryptText() {
+            let input = document.getElementById("inputText").value.toUpperCase();
+            const shift = parseInt(document.getElementById("shiftKey").value);
+            if (isNaN(shift) || shift < 0 || shift > 25) {
+                alert("Please enter a valid key between 1 and 25.");
+                return;
+            }
+
+            const shiftedAlphabet = generateShiftedAlphabet(shift);
+            let encrypted = "";
+
+            for (let char of input) {
+                const index = alphabet.indexOf(char);
+                encrypted += index !== -1 ? shiftedAlphabet[index] : char;
+            }
+
+            document.getElementById("inputText").value = encrypted;
+        }
+
+        function decryptText() {
+            let input = document.getElementById("inputText").value.toUpperCase();
+            const shift = parseInt(document.getElementById("shiftKey").value);
+            if (isNaN(shift) || shift < 0 || shift > 25) {
+                alert("Please enter a valid key between 1 and 25.");
+                return;
+            }
+
+            const shiftedAlphabet = generateShiftedAlphabet(shift);
+            let decrypted = "";
+
+            for (let char of input) {
+                const index = shiftedAlphabet.indexOf(char);
+                decrypted += index !== -1 ? alphabet[index] : char;
+            }
+
+            document.getElementById("inputText").value = decrypted;
+        }
+    </script>
+</body>
+
+</html>
