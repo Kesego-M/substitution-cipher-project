@@ -6,23 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Substitution Cipher System</title>
     <style>
-        /* 🎨 Page Styling */
+       
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            background: linear-gradient(135deg, #c95d05, #f2fa64);
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
         }
 
-        /* 📦 Container */
+        #Groupname {
+        font-size: 40px;
+        font-weight: bold;
+        font-family: cursive;
+        color: rgb(17, 14, 14);
+        text-shadow: 2px 2px 4px rgb(244, 70, 70);
+        margin-bottom: 20px;
+        animation: bounce 1.5s ease infinite;
+        }
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+            transform: translateY(0);
+        }
+        40% {
+            transform: translateY(-20px);
+        }
+        60% {
+            transform: translateY(-10px);
+        }
+    }
         .container {
             background: white;
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 30px 60px rgba(9, 0, 0, 0.896);
             text-align: center;
             width: 90%;
             max-width: 400px;
@@ -33,7 +53,6 @@
             margin-bottom: 20px;
         }
 
-        /* 📝 Input Styling */
         input[type="text"],
         input[type="number"] {
             width: 100%;
@@ -45,7 +64,6 @@
             box-sizing: border-box;
         }
 
-        /* 🔘 Buttons */
         .btn-container {
             display: flex;
             justify-content: space-between;
@@ -54,8 +72,8 @@
 
         button {
             flex: 1;
-            background-color: #8b5cf6;
-            color: white;
+            background-color: #eaf430;
+            color: rgb(28, 26, 26);
             border: none;
             padding: 12px;
             font-size: 16px;
@@ -66,25 +84,29 @@
         }
 
         button:hover {
-            background-color: #6d28d9;
+            background-color: #ec791c;
         }
 
         button.decrypt {
-            background-color: #ec4899;
+            background-color: #ec791c;
         }
 
         button.decrypt:hover {
-            background-color: #be185d;
+            background-color: #eaf430;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>🔐 Substitution Cipher</h1>
+    
+    <h1 id="Groupname">CodeChix 👧💻</h1>
 
-        <input id="inputText" type="text" placeholder="Enter text...">
-        <input id="shiftKey" type="number" placeholder="Enter key (1-25)" min="0" max="25">
+    <div class="container">
+        <h1>🔐 Substitution Cipher </h1>
+
+        <input id="inputText" type="text" placeholder="Enter text..." oninput="validateInput()">
+        <input id="shiftKey" type="number" placeholder="Enter key (0-25)" min="0" max="25">
+        
 
         <div class="btn-container">
             <button onclick="encryptText()">Encrypt</button>
@@ -98,12 +120,23 @@
         function generateShiftedAlphabet(shift) {
             return alphabet.slice(shift) + alphabet.slice(0, shift);
         }
+        
+        function validateInput() {
+            let inputField = document.getElementById("inputText");
+            let inputValue = inputField.value;
+            let lettersOnly = /^[A-Za-z\s]*$/;
+
+            if (!lettersOnly.test(inputValue)) {
+                alert("❌ Please enter letters only (A-Z). Numbers or symbols are not allowed.");
+                inputField.value = ""; 
+                }
+            }
 
         function encryptText() {
             let input = document.getElementById("inputText").value.toUpperCase();
             const shift = parseInt(document.getElementById("shiftKey").value);
             if (isNaN(shift) || shift < 0 || shift > 25) {
-                alert("Please enter a valid key between 1 and 25.");
+                alert("Please enter a valid key between 0 and 25.");
                 return;
             }
 
@@ -122,7 +155,7 @@
             let input = document.getElementById("inputText").value.toUpperCase();
             const shift = parseInt(document.getElementById("shiftKey").value);
             if (isNaN(shift) || shift < 0 || shift > 25) {
-                alert("Please enter a valid key between 1 and 25.");
+                alert("Please enter a valid key between 0 and 25.");
                 return;
             }
 
